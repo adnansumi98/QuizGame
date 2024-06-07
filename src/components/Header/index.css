@@ -1,0 +1,53 @@
+.header-container{
+  margin:20px;
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+  max-height:40px;
+}
+
+.header-logo{
+  height:40px;
+}
+
+.header-button{
+  background-color:#fff;
+  border:transparent;
+}
+
+.header-button:hover{
+  background-color:#eee;
+  cursor:pointer;
+}
+
+.logout-icon{
+  display:block;
+  padding:10px;
+}
+
+.logout-text{
+  display:none;
+}
+
+@media (min-width:768px)  {
+  .header-container{
+    max-height:50px
+  }
+  .header-button{
+    color: #AFAFAF;
+    width:80px;
+    font-size:13px;
+    font-family:"Roboto";
+    border: 2px solid #AFAFAF;
+    border-radius:10px;
+  }
+
+  .logout-text{
+  display:block;
+  }
+  
+  .logout-icon{
+    display:none;
+  }
+}

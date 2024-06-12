@@ -1,16 +1,23 @@
-import "./index.css";
+import { withRouter } from 'react-router-dom'
+import Cookie from 'js-cookie'
 
-const Header = () => {
-  // TODO: implement Log out functionality in react context
+import './index.css'
+
+const Header = (props) => {
+  const onClickLogout = () => {
+    Cookie.remove('jwt_token')
+    const { history } = props
+    history.replace('/login')
+  }
 
   return (
-    <div className="header-container">
+    <nav className="header-container">
       <img
         src="../../../static/images/Logo.png"
         alt="Logo"
         className="header-logo"
       />
-      <button className="header-button" onClick={() => console.log("clicked")}>
+      <button className="header-button" onClick={onClickLogout}>
         <img
           src="../../../static/images/log-out.png"
           alt="Logout"
@@ -18,8 +25,10 @@ const Header = () => {
         />
         <p className="logout-text">Logout</p>
       </button>
-    </div>
-  );
-};
+    </nav>
+  )
+}
 
-export default Header;
+export default withRouter(Header)
+
+// Header Completed needs testing

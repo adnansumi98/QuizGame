@@ -1,31 +1,31 @@
-import "./index.css";
-import { Container, Heading, Text } from "./styledComponents";
-import Login from "../Login";
-import Header from "../Header";
-import QuizItem from "../QuizItem";
-import { useState, useEffect } from "react";
+import './index.css'
+import { Container, Heading, Text } from './styledComponents'
+import Login from '../Login'
+import Header from '../Header'
+import QuizItem from '../QuizItem'
+import { useState, useEffect } from 'react'
 
 const QuizGame = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isReloading, setIsReloading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isReloading, setIsReloading] = useState(false)
 
   useEffect(() => {
     //TODO: need to triger an alert if user is reloading the page
     const handleBeforeUnload = (event) => {
-      event.preventDefault();
-      event.returnValue = true;
+      event.preventDefault()
+      event.returnValue = true
       setTimeout(() => {
-        setIsReloading(true);
-      }, 100);
-    };
+        setIsReloading(true)
+      }, 100)
+    }
 
-    window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener('beforeunload', handleBeforeUnload)
 
     // Cleanup function to remove the event listener when the component unmounts
     return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []); // Empty dependency array means this effect runs once on mount
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+    }
+  }, []) // Empty dependency array means this effect runs once on mount
 
   const renderWarningReload = () => (
     <div className="warning-container">
@@ -38,7 +38,7 @@ const QuizGame = () => {
         All the progress will be lost, if you reload during the quiz
       </Text>
     </div>
-  );
+  )
 
   const renderNotFound = () => (
     <Container>
@@ -50,13 +50,13 @@ const QuizGame = () => {
       <Heading> Page Not Found</Heading>
       <Text>We are sorry, the page you requested could not be found </Text>
     </Container>
-  );
+  )
 
   const renderLogIn = () => (
     <Container>
-      <renderLogIn />
+      <Login />
     </Container>
-  );
+  )
 
   const renderStartQuizGame = () => (
     <Container>
@@ -66,7 +66,7 @@ const QuizGame = () => {
           alt="Start Quiz"
           className="start-game-image"
         />
-        <Heading color="#0EA5E9" style={{ textAlign: "center" }}>
+        <Heading color="#0EA5E9" style={{ textAlign: 'center' }}>
           How Many Of These Questions Do You Actually Know?
         </Heading>
         {/*manually added center alignment for mobile view */}
@@ -76,17 +76,17 @@ const QuizGame = () => {
         <div className="start-game-button-container">
           <button
             className="primary-button"
-            onClick={() => console.log("start game button clicked")}
+            onClick={() => console.log('start game button clicked')}
           >
             Start Game
           </button>
         </div>
       </div>
     </Container>
-  );
+  )
 
   // return renderNotFound();
-  // return renderLogIn();
+  return renderLogIn()
   // return <Header />;
   // return (
   //   <Container>
@@ -94,7 +94,7 @@ const QuizGame = () => {
   //     {isReloading && renderWarningReload()}
   //   </Container>
   // );
-  return QuizItem();
-};
+  // return QuizItem()
+}
 
-export default QuizGame;
+export default QuizGame

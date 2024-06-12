@@ -1,6 +1,6 @@
-import "./App.css";
-import QuizGame from "./components/QuizGame";
+import './App.css'
+import QuizGame from './components/QuizGame'
 
 export default function App() {
-  return <QuizGame />;
+  return <QuizGame />
 }

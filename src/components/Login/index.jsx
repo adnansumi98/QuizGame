@@ -1,7 +1,5 @@
 import { useState } from 'react'
 import Cookies from 'js-cookie'
-// import { Navigate } from 'react-router-dom'
-import { Redirect } from 'react-router-dom'
 import './index.css'
 
 const apiConstants = {
@@ -31,6 +29,7 @@ const Login = () => {
     event.preventDefault()
     const options = {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -38,17 +37,12 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch('https://apis.ccbp.in/login', options)
+      const response = await fetch('http://localhost:3001/proxy-login', options)
       const data = await response.json()
     } catch (error) {
       console.error('Error occcured while logging in: ' + error)
     }
   }
-
-  // {
-  //   "jwt_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhaHVsIiwicm9sZSI6IlBSSU1FX1VTRVIiLCJpYXQiOjE2MjMwNjU1MzJ9.D13s5wN3Oh59aa_qtXMo3Ec4wojOx0EZh8Xr5C5sRkU"
-  // }
-  // TODO: Add a login function with API call
 
   return (
     <div className="login-conatiner">

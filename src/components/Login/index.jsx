@@ -38,7 +38,12 @@ const Login = () => {
 
     try {
       const response = await fetch('http://localhost:3001/proxy-login', options)
+      // const response = await fetch('https://apis.ccbp.in/login', options)
       const data = await response.json()
+
+      if (data.jwt_token) {
+        Cookies.set('jwt_token', data.jwt_token, { expires: 30 })
+      }
     } catch (error) {
       console.error('Error occcured while logging in: ' + error)
     }

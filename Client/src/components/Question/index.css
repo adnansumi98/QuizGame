@@ -12,7 +12,6 @@
     flex-direction: row;
     justify-content: space-between;
 }
-
 .question-number {
     background: #d2a7b3;
     color: #334155;
@@ -22,12 +21,10 @@
     font-size: 16px;
     font-weight: 500;
 }
-
 .question-span {
     color: #f8fafc;
     margin-top: 10px;
 }
-
 .question-timer {
     border: 2px solid #0ea5e9;
     border-radius: 50%;
@@ -63,7 +60,6 @@
     list-style-type: upper-alpha;
     list-style-position: inside;
 }
-
 .option-list {
     font-size: 14px;
     font-family: "Roboto";
@@ -75,7 +71,6 @@
     width: 70vw;
     cursor: pointer;
 }
-
 .option-button {
     color: #334155;
     background-color: transparent;
@@ -100,7 +95,6 @@
     border-radius: 4px 0px 0px 0px;
     opacity: 0px;
 }
-
 .next-button:hover {
     background-color: #0ea5e9;
     color: #f8fafc;

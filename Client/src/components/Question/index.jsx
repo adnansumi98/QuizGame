@@ -40,7 +40,6 @@ const Question = (props) => {
       if (currentQuestionNo < totalQuestions) {
         setCurrentQuestionNo(currentQuestionNo + 1);
       } else {
-
       }
     }
   }, [selectedOption]);

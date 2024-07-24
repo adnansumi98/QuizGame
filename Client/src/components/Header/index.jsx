@@ -1,22 +1,24 @@
-import { withRouter } from 'react-router-dom'
-import Cookie from 'js-cookie'
+import { withRouter, Link } from 'react-router-dom';
+import Cookie from 'js-cookie';
 
-import './index.css'
+import './index.css';
 
 const Header = (props) => {
   const onClickLogout = () => {
-    Cookie.remove('jwt_token')
-    const { history } = props
-    history.replace('/login')
-  }
+    Cookie.remove('jwt_token');
+    const { history } = props;
+    history.replace('/login');
+  };
 
   return (
     <nav className="header-container">
-      <img
-        src="../../../static/images/Logo.png"
-        alt="Logo"
-        className="header-logo"
-      />
+      <Link to="/start">
+        <img
+          src="../../../static/images/Logo.png"
+          alt="Logo"
+          className="header-logo"
+        />
+      </Link>
       <button className="header-button" onClick={onClickLogout}>
         <img
           src="../../../static/images/log-out.png"
@@ -26,9 +28,9 @@ const Header = (props) => {
         <p className="logout-text">Logout</p>
       </button>
     </nav>
-  )
-}
+  );
+};
 
-export default withRouter(Header)
+export default withRouter(Header);
 
 // Header Completed needs testing

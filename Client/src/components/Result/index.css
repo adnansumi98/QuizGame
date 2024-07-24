@@ -1,0 +1,37 @@
+.result-container {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto';
+  text-align: center;
+  margin: 10px;
+  align-items: center;
+}
+
+.result-heading {
+  color: #334155;
+  font-size: 32px;
+  font-weight: 600;
+}
+.blue {
+  color: #0ea5e9;
+}
+.result-completion {
+  font-size: 24px;
+  font-weight: 500;
+  color: #334155;
+}
+.result-text {
+  color: #475569;
+  font-size: 18px;
+  font-weight: 400;
+}
+.report-button {
+  background: #0ea5e9;
+  color: #f8fafc;
+  padding: 8px 20px 8px 20px;
+  border-radius: 4px;
+  opacity: 0px;
+  border: transparent;
+  font-size: 14px;
+  font-weight: 500;
+}

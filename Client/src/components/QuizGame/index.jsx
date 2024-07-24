@@ -5,7 +5,12 @@ import Header from "../Header";
 import QuizItem from "../QuizItem";
 import Result from "../Result";
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute/";
 
 const StatusConstants = {
@@ -114,12 +119,37 @@ const QuizGame = () => {
   return (
     <Router>
       <Header isLoggedIn={isLoggedIn} />
-      <Switch>
-        <Route exact path="/login" render={renderLogIn} />
-        <ProtectedRoute exact path="/" render={renderQuizItem} />
-        <ProtectedRoute exact path="/result" render={renderResult} />
-        <Route render={renderNotFound} />
-      </Switch>
+      <Routes>
+        <Route
+          path="/login"
+          element={
+            <Container>
+              <Login />
+            </Container>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Container>
+                {statusOfGame === StatusConstants.started
+                  ? renderQuizItem()
+                  : renderStartQuizGame()}
+              </Container>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/result"
+          element={<ProtectedRoute>{renderResult()}</ProtectedRoute>}
+        />
+        <Route path="*" element={<Navigate to="/not-found" replace />} />
+        <Route
+          path="/not-found"
+          element={<Container>{/* Not Found UI */}</Container>}
+        />
+      </Routes>
     </Router>
   );
 };

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
 import "./index.css";
-import { withRouter } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const apiConstants = {
   OK: 200,
@@ -11,12 +11,12 @@ const apiConstants = {
   NOT_FOUND: 404,
 };
 
-const Login = (props) => {
+const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const { history } = props;
+  const navigate = useNavigate();
 
   const onchangeUsername = (event) => {
     setUsername(event.target.value);
@@ -49,7 +49,7 @@ const Login = (props) => {
 
       if (data.jwt_token) {
         Cookies.set("jwt_token", data.jwt_token, { expires: 30 });
-        history.push("/");
+        navigate("/");
       }
     } catch (error) {
       console.error("Error occcured while logging in: " + error);
@@ -105,4 +105,4 @@ const Login = (props) => {
   );
 };
 
-export default withRouter(Login);
+export default Login;

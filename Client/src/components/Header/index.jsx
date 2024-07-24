@@ -1,13 +1,14 @@
-import { withRouter, Link } from 'react-router-dom';
-import Cookie from 'js-cookie';
+import { useNavigate, Link } from "react-router-dom";
+import Cookie from "js-cookie";
 
-import './index.css';
+import "./index.css";
 
-const Header = (props) => {
+const Header = () => {
+  const navigate = useNavigate();
+
   const onClickLogout = () => {
-    Cookie.remove('jwt_token');
-    const { history } = props;
-    history.replace('/login');
+    Cookie.remove("jwt_token");
+    navigate("/login");
   };
 
   return (
@@ -31,6 +32,4 @@ const Header = (props) => {
   );
 };
 
-export default withRouter(Header);
-
-// Header Completed needs testing
+export default Header;

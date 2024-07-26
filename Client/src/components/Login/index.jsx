@@ -1,7 +1,7 @@
-import { useState } from "react";
-import Cookies from "js-cookie";
-import "./index.css";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import Cookies from 'js-cookie';
+import './index.css';
+import { useNavigate } from 'react-router-dom';
 
 const apiConstants = {
   OK: 200,
@@ -12,9 +12,10 @@ const apiConstants = {
 };
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
 
@@ -31,28 +32,31 @@ const Login = () => {
   const onSubmitLoginForm = async (event) => {
     event.preventDefault();
     const options = {
-      method: "POST",
-      credentials: "include",
+      method: 'POST',
+      credentials: 'include',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ username, password }),
     };
 
     try {
       const response = await fetch(
-        "http://localhost:3001/proxy-login",
-        options,
+        'http://localhost:3001/proxy-login',
+        options
       );
       // const response = await fetch('https://apis.ccbp.in/login', options);
       const data = await response.json();
 
       if (data.jwt_token) {
-        Cookies.set("jwt_token", data.jwt_token, { expires: 30 });
-        navigate("/");
+        Cookies.set('jwt_token', data.jwt_token, { expires: 30 });
+        navigate('/');
+      } else {
+        setErrorMessage('Invalid username or password.');
       }
     } catch (error) {
-      console.error("Error occcured while logging in: " + error);
+      console.error('Error occcured while logging in: ' + error);
+      setErrorMessage('Invalid username or password.');
     }
   };
 
@@ -79,7 +83,7 @@ const Login = () => {
         </label>
         <input
           className="login-input"
-          type={showPassword ? "text" : "password"}
+          type={showPassword ? 'text' : 'password'}
           id="password"
           value={password}
           onChange={onchangePassword}
@@ -97,6 +101,7 @@ const Login = () => {
             Show Password
           </label>
         </div>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
         <button className="login-button" type="submit">
           Login
         </button>

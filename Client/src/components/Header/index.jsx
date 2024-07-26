@@ -13,7 +13,7 @@ const Header = () => {
 
   return (
     <nav className="header-container">
-      <Link to="/start">
+      <Link to="/">
         <img
           src="../../../static/images/Logo.png"
           alt="Logo"

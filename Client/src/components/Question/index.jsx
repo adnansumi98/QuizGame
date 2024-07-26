@@ -1,44 +1,68 @@
 import { useEffect, useState } from "react";
 import { ScoreContext } from "../context/ScoreContext";
-
-import "./index.css";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
+import "./index.css";
 
 const Question = (props) => {
   const { quizData } = props;
   const totalQuestions = quizData.length;
   const [selectedOption, setSelectedOption] = useState(null);
   const [timeLeft, setTimeLeft] = useState(15);
-  const [currentQuestionNo, setCurrentQuestionNo] = useState(1);
+  const [currentQuestionNo, setCurrentQuestionNo] = useState(0);
   const [question, setQuestion] = useState([]);
   const [correctAnswer, setCorrectAnswer] = useState([]);
-
   const { score, increaseScore } = useContext(ScoreContext);
+
+  const navigate = useNavigate();
+
+  let intervalId;
 
   useEffect(() => {
     setQuestion(quizData[currentQuestionNo]);
-    if (timeLeft > 0) {
-      setTimeout(() => {
-        setTimeLeft(timeLeft - 1);
+  }, [currentQuestionNo]);
+
+  const increaseQuestionNo = () => {
+    setCurrentQuestionNo(
+      currentQuestionNo < totalQuestions
+        ? currentQuestionNo + 1
+        : currentQuestionNo,
+    );
+    setTimeLeft(15);
+    setSelectedOption(null);
+    setCorrectAnswer(
+      question.length !== 0
+        ? question.options.filter((each) => each.isCorrect === "true")
+        : "no correct answer",
+    );
+  };
+
+  useEffect(() => {
+    // clear existing interval Id to avoid overlaping intervals
+    clearInterval(intervalId);
+    // check if tere is still questions and time is up
+    if (currentQuestionNo < totalQuestions && timeLeft > 0) {
+      intervalId = setInterval(() => {
+        setTimeLeft((prevTimeLeft) => prevTimeLeft - 1); //use functional update
       }, 1000);
     } else {
-      setCurrentQuestionNo(currentQuestionNo + 1);
-      setTimeLeft(15);
-      setSelectedOption(null);
-      setCorrectAnswer(
-        question.length !== 0
-          ? question.options.filter((each) => each.isCorrect === "true")
-          : "no correct answer",
-      );
+      // no more questions and time is up
+      if (currentQuestionNo === totalQuestions) {
+        navigate("/result");
+      } else {
+        increaseQuestionNo();
+      }
     }
-  }, [timeLeft]);
+    // clean up the interval right after the timer changes and component unmounts
+    return () => clearInterval(intervalId);
+  }, [timeLeft, currentQuestionNo, totalQuestions, navigate]);
 
-  const result = useEffect(() => {
-    if (selectedOption === correctAnswer) {
-      increaseScore();
-    } else {
-      if (currentQuestionNo < totalQuestions) {
-        setCurrentQuestionNo(currentQuestionNo + 1);
+  useEffect(() => {
+    if (selectedOption !== null) {
+      if (selectedOption === correctAnswer) {
+        increaseScore();
+        clearTimeout(timerId);
+        increaseQuestionNo();
       } else {
       }
     }
@@ -46,10 +70,8 @@ const Question = (props) => {
 
   const handleNextQuestion = (event) => {
     event.target.classList.remove("next-button-active");
-  };
-
-  const handleOptionClick = (event) => {
-    console.log(question);
+    setCurrentQuestionNo(currentQuestionNo + 1);
+    setTimeLeft(15);
   };
 
   return (
@@ -58,7 +80,7 @@ const Question = (props) => {
         <p className="question-number">
           Question <br />
           <span className="question-span">
-            {currentQuestionNo}/{totalQuestions}
+            {currentQuestionNo + 1}/{totalQuestions}
           </span>
         </p>
         <p className="question-timer">{timeLeft}</p>

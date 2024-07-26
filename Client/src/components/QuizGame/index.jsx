@@ -1,22 +1,22 @@
-import "./index.css";
-import { Container, Heading, Text } from "./styledComponents";
-import Login from "../Login";
-import Header from "../Header";
-import QuizItem from "../QuizItem";
-import Result from "../Result";
-import { useState, useEffect } from "react";
+import './index.css';
+import { Container, Heading, Text } from './styledComponents';
+import Login from '../Login';
+import Header from '../Header';
+import QuizItem from '../QuizItem';
+import Result from '../Result';
+import { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Routes,
   Navigate,
-} from "react-router-dom";
-import ProtectedRoute from "../ProtectedRoute/";
+} from 'react-router-dom';
+import ProtectedRoute from '../ProtectedRoute/';
 
 const StatusConstants = {
-  started: "STARTED",
-  finished: "FINISHED",
-  notStarted: "NOTSTARTED",
+  started: 'STARTED',
+  finished: 'FINISHED',
+  notStarted: 'NOTSTARTED',
 };
 
 const QuizGame = () => {
@@ -34,11 +34,11 @@ const QuizGame = () => {
       }, 100);
     };
 
-    window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener('beforeunload', handleBeforeUnload);
 
     // Cleanup function to remove the event listener when the component unmounts
     return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, []);
 
@@ -86,10 +86,9 @@ const QuizGame = () => {
         alt="Start Quiz"
         className="start-game-image"
       />
-      <Heading color="#0EA5E9" style={{ textAlign: "center" }}>
+      <Heading color="#0EA5E9" style={{ textAlign: 'center' }}>
         How Many Of These Questions Do You Actually Know?
       </Heading>
-      {/*manually added center alignment for mobile view */}
       <Text color="#475569">
         Test yourself with these easy quiz questions and answers
       </Text>

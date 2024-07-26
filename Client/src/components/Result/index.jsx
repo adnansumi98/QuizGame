@@ -1,11 +1,13 @@
-import './index.css'
+import { ScoreContext } from '../context/ScoreContext';
+import { useContext } from 'react';
+import './index.css';
 
 const Result = (props) => {
-  const { result } = props
+  const { score } = useContext(ScoreContext);
 
   return (
     <div className="result-container">
-      {result >= 5 ? (
+      {score >= 5 ? (
         <img
           src="../../../static/images/trophy.png"
           className="result-image"
@@ -23,20 +25,20 @@ const Result = (props) => {
         />
       )}
       <h1 className="result-heading">
-        {result >= 5 ? 'Congrats!' : 'You Lose!'}
+        {score >= 5 ? 'Congrats!' : 'You Lose!'}
       </h1>
-      <p className="result-heading blue">{result * 10}% Correctly Answered</p>
-      {result >= 5 && (
+      <p className="result-heading blue">{score * 10}% Correctly Answered</p>
+      {score >= 5 && (
         <p className="result-completion">Quiz Completed Succesfully</p>
       )}
       <p className="result-text">
-        you attemped {result} out of 10 questions as correct
+        you attemped {score} out of 10 questions as correct
       </p>
       <div>
         <button className="report-button">Report</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Result
+export default Result;

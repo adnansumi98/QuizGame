@@ -12,6 +12,7 @@ import {
   Navigate,
 } from 'react-router-dom';
 import ProtectedRoute from '../ProtectedRoute/';
+import { ScoreProvider } from '../context/ScoreContext';
 
 const StatusConstants = {
   started: 'STARTED',
@@ -116,40 +117,42 @@ const QuizGame = () => {
   );
 
   return (
-    <Router>
-      <Header isLoggedIn={isLoggedIn} />
-      <Routes>
-        <Route
-          path="/login"
-          element={
-            <Container>
-              <Login />
-            </Container>
-          }
-        />
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
+    <ScoreProvider>
+      <Router>
+        <Header isLoggedIn={isLoggedIn} />
+        <Routes>
+          <Route
+            path="/login"
+            element={
               <Container>
-                {statusOfGame === StatusConstants.started
-                  ? renderQuizItem()
-                  : renderStartQuizGame()}
+                <Login />
               </Container>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/result"
-          element={<ProtectedRoute>{renderResult()}</ProtectedRoute>}
-        />
-        <Route path="*" element={<Navigate to="/not-found" replace />} />
-        <Route
-          path="/not-found"
-          element={<Container>{/* Not Found UI */}</Container>}
-        />
-      </Routes>
-    </Router>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Container>
+                  {statusOfGame === StatusConstants.started
+                    ? renderQuizItem()
+                    : renderStartQuizGame()}
+                </Container>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/result"
+            element={<ProtectedRoute>{renderResult()}</ProtectedRoute>}
+          />
+          <Route path="*" element={<Navigate to="/not-found" replace />} />
+          <Route
+            path="/not-found"
+            element={<Container>{/* Not Found UI */}</Container>}
+          />
+        </Routes>
+      </Router>
+    </ScoreProvider>
   );
 };
 

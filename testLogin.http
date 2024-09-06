@@ -1,4 +1,4 @@
-POST http://localhost:3001/proxy-login
+POST https://apis.ccbp.in/login
 Content-Type: application/json
 
 {

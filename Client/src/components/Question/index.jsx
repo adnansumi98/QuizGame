@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { ScoreContext } from "../context/ScoreContext";
-import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import "./index.css";
+
+import { ScoreContext } from '../context/ScoreContext';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import './index.css';
 
 const Question = (props) => {
   const { quizData } = props;
@@ -11,7 +11,6 @@ const Question = (props) => {
   const [timeLeft, setTimeLeft] = useState(15);
   const [currentQuestionNo, setCurrentQuestionNo] = useState(0);
   const [question, setQuestion] = useState([]);
-  const [correctAnswer, setCorrectAnswer] = useState([]);
   const { score, increaseScore } = useContext(ScoreContext);
 
   const navigate = useNavigate();
@@ -26,15 +25,10 @@ const Question = (props) => {
     setCurrentQuestionNo(
       currentQuestionNo < totalQuestions
         ? currentQuestionNo + 1
-        : currentQuestionNo,
+        : currentQuestionNo
     );
     setTimeLeft(15);
     setSelectedOption(null);
-    setCorrectAnswer(
-      question.length !== 0
-        ? question.options.filter((each) => each.isCorrect === "true")
-        : "no correct answer",
-    );
   };
 
   useEffect(() => {
@@ -48,7 +42,8 @@ const Question = (props) => {
     } else {
       // no more questions and time is up
       if (currentQuestionNo === totalQuestions) {
-        navigate("/result");
+        navigate('/result');
+
       } else {
         increaseQuestionNo();
       }
@@ -58,10 +53,16 @@ const Question = (props) => {
   }, [timeLeft, currentQuestionNo, totalQuestions, navigate]);
 
   useEffect(() => {
+    const correctAnswer =
+      question.length !== 0
+        ? question.options.filter((each) => each.isCorrect === 'true')
+        : 'no correct answer';
+
+    console.log(selectedOption, correctAnswer[0].id);
     if (selectedOption !== null) {
       if (selectedOption === correctAnswer) {
         increaseScore();
-        clearTimeout(timerId);
+        setTimeLeft(0);
         increaseQuestionNo();
       } else {
       }
@@ -69,7 +70,7 @@ const Question = (props) => {
   }, [selectedOption]);
 
   const handleNextQuestion = (event) => {
-    event.target.classList.remove("next-button-active");
+    event.target.classList.remove('next-button-active');
     setCurrentQuestionNo(currentQuestionNo + 1);
     setTimeLeft(15);
   };

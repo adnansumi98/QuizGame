@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "loginproxy.js",
   "scripts": {
-    "start": "node loginproxy.mjs",
-    "server": "node --watch loginproxy.mjs",
+    "start": "nodemon loginproxy.mjs",
+    "server": "nodemon loginproxy.mjs",
     "client": "npm run dev --prefix Client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },

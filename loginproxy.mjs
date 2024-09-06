@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import fetch from 'node-fetch';
 
 function loginProxy() {
   const app = express();
@@ -16,7 +17,6 @@ function loginProxy() {
   app.use(cors(corsOptions));
 
   const requestEndPoint = 'https://apis.ccbp.in/login';
-
   app.post('/proxy-login', async (req, res) => {
     const { username, password } = req.body;
     try {
@@ -27,6 +27,11 @@ function loginProxy() {
         },
         body: JSON.stringify({ username, password }),
       });
+      if (!response.ok) {
+        // Handle non-200 status codes (e.g., 404, 500)
+        throw new Error(`API returned status ${response.status}`);
+      }
+
       const data = await response.json();
       res.json(data);
     } catch (error) {

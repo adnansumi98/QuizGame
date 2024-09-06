@@ -1,7 +1,6 @@
-
-import { ScoreContext } from '../context/ScoreContext';
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { ScoreContext } from '../context/ScoreContext';
 import './index.css';
 
 const Question = (props) => {
@@ -43,7 +42,6 @@ const Question = (props) => {
       // no more questions and time is up
       if (currentQuestionNo === totalQuestions) {
         navigate('/result');
-
       } else {
         increaseQuestionNo();
       }
